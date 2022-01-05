@@ -27,8 +27,8 @@ var ResetViewNavigationControl = function (terria) {
    * Gets or sets the svg icon of the control.  This property is observable.
    * @type {Object}
    */
-  this.svgIcon = svgReset
-
+  this.svgIcon = terria.options.resetSvg ? "" : svgReset
+  this.resetSvg = terria.options.resetSvg
   /**
    * Gets or sets the height of the svg icon.  This property is observable.
    * @type {Integer}

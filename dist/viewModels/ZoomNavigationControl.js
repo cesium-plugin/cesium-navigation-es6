@@ -29,7 +29,19 @@ var ZoomNavigationControl = function (terria, zoomIn) {
    * This property is observable.
    * @type {String}
    */
-  this.text = zoomIn ? '+' : '-'
+  if (zoomIn) {
+    if (terria.options.zoomInSvg) {
+      this.zoomInSvg = terria.options.zoomInSvg
+    } else {
+      this.text = '+'
+    }
+  } else {
+    if (terria.options.zoomOutSvg) {
+      this.zoomOutSvg = terria.options.zoomOutSvg
+    } else {
+      this.text = '-'
+    }
+  }
 
   /**
    * Gets or sets the CSS class of the control. This property is observable.

@@ -127,6 +127,10 @@ NavigationViewModel.prototype.show = function (container) {
   const compassDivHiddenStr = compassPre + hiddenStr + compassDivPublicStr
 
   const navigationControlsPre = '<div class="navigation-controls"'
+  const resetSvg = this.terria.options.resetSvg
+  const zoomInSvg = this.terria.options.zoomInSvg
+  const zoomOutSvg = this.terria.options.zoomOutSvg
+
 
   const navigationControlsDivPublicStr = divCloseStr + '<!-- ko foreach: controls -->' +
     '<div data-bind="click: activate, attr: { title: $data.name }, css: $root.isLastControl($data) ? \'navigation-control-last\' : \'navigation-control\' ">' +
@@ -134,7 +138,28 @@ NavigationViewModel.prototype.show = function (container) {
     '   <div data-bind="text: $data.text, css: $data.isActive ?  \'navigation-control-icon-active \' + $data.cssClass : $data.cssClass"></div>' +
     '   <!-- /ko -->' +
     '  <!-- ko ifnot: $data.hasText -->' +
+    '  <!-- ko if: $data.svgIcon -->' +
     '  <div data-bind="cesiumSvgPath: { path: $data.svgIcon, width: $data.svgWidth, height: $data.svgHeight }, css: $data.isActive ?  \'navigation-control-icon-active \' + $data.cssClass : $data.cssClass"></div>' +
+    '  <!-- /ko -->' +
+    '  <!-- ko ifnot: $data.svgIcon -->' +
+
+    '  <!-- ko if: $data.resetSvg -->' +
+    '  <div class="navigation-control-icon-svg">' + resetSvg + '</div>' +
+    '  <!-- /ko -->' +
+
+    '  <!-- ko ifnot: $data.resetSvg -->' +
+    '  <!-- ko if: $data.zoomInSvg -->' +
+    '  <div class="navigation-control-icon-svg">' + zoomInSvg + '</div>' +
+    '  <!-- /ko -->' +
+
+    '  <!-- ko ifnot: $data.zoomInSvg -->' +
+    '  <!-- ko if: $data.zoomOutSvg -->' +
+    '  <div class="navigation-control-icon-svg">' + zoomOutSvg + '</div>' +
+    '  <!-- /ko -->' +
+    '  <!-- /ko -->' +
+    '  <!-- /ko -->' +
+
+    '  <!-- /ko -->' +
     '  <!-- /ko -->' +
     ' </div>' +
     ' <!-- /ko -->' +

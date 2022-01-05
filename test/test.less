@@ -7,6 +7,7 @@
 @compass-gyro-background-color: #fff;
 @compass-outer-ring-bg-color: rgb(63, 72, 84, 0.5);
 @compass-gyro-color: rgb(63, 72, 84);
+@control-color: rgb(32 38 45);
 
 .compass {
     bottom: 100px;
@@ -57,21 +58,34 @@
     fill: @compass-select-color;
 }
 
-
 .navigation-controls {
     bottom: 60px;
     top: auto;
     width: 90px;
     right: 20px;
-    background-color: @compass-gyro-color;
+    background-color: @control-color;
 }
 
+.navigation-control-last,
 .navigation-control {
     border: none;
+    justify-content: center;
+    display: flex;
+    align-items: center;
 }
 
+.navigation-control-icon-zoom-in {
+    padding-bottom: 0;
+}
+
+.navigation-control-icon-reset {
+    left: auto;
+    padding-top: 0px;
+}
+
+
 .distance-legend {
-    background-color: @compass-gyro-color;
+    background-color: @control-color;
     border-radius: 0px;
     left: 5px;
 }
