@@ -96,7 +96,7 @@ NavigationViewModel.prototype.show = function (container) {
   const hiddenStr = ' style="display: none;"'
 
   const compassPre = '<div class="compass"'
-  const compassPreAfter = 'title="" data-bind="visible: showCompass, event: { mousedown: handleMouseDown, dblclick: handleDoubleClick }">'
+  const compassPreAfter = 'title="" data-bind="visible: showCompass, event: { mousedown: handleMouseDown,touchstart:handleMouseDown, dblclick: handleDoubleClick }">'
   const compassOuterRingBackground = '<div class="compass-outer-ring-background"></div>'
 
   const compassRotationMarkerPre = ' <div class="compass-rotation-marker" data-bind="visible: isOrbiting, style: { transform: \'rotate(-\' + orbitCursorAngle + \'rad)\', \'-webkit-transform\': \'rotate(-\' + orbitCursorAngle + \'rad)\', opacity: orbitCursorOpacity }'
@@ -197,8 +197,18 @@ NavigationViewModel.prototype.isLastControl = function (control) {
 }
 
 var vectorScratch = new Cartesian2()
-
+const getClientXY = (e) => {
+  let temp;
+  if (e.touches) {
+    temp = e.touches[0];
+  } else {
+    temp = e;
+  }
+  const { clientX, clientY } = temp;
+  return { clientX, clientY }
+}
 NavigationViewModel.prototype.handleMouseDown = function (viewModel, e) {
+  const { clientX, clientY } = getClientXY(e)
   var scene = this.terria.scene
   if (scene.mode === SceneMode.MORPHING) {
     return true
@@ -211,7 +221,7 @@ NavigationViewModel.prototype.handleMouseDown = function (viewModel, e) {
   var compassRectangle = e.currentTarget.getBoundingClientRect()
   var maxDistance = compassRectangle.width / 2.0
   var center = new Cartesian2((compassRectangle.right - compassRectangle.left) / 2.0, (compassRectangle.bottom - compassRectangle.top) / 2.0)
-  var clickLocation = new Cartesian2(e.clientX - compassRectangle.left, e.clientY - compassRectangle.top)
+  var clickLocation = new Cartesian2(clientX - compassRectangle.left, clientY - compassRectangle.top)
   var vector = Cartesian2.subtract(clickLocation, center, vectorScratch)
   var distanceFromCenter = Cartesian2.magnitude(vector)
 
@@ -298,7 +308,35 @@ NavigationViewModel.create = function (options) {
   result.show(options.container)
   return result
 }
+const addOrbitEventListener = (viewModel) => {
+  document.addEventListener('mousemove', viewModel.orbitMouseMoveFunction, false)
+  document.addEventListener('touchmove', viewModel.orbitMouseMoveFunction, false)
 
+  document.addEventListener('mouseup', viewModel.orbitMouseUpFunction, false)
+  document.addEventListener('touchend', viewModel.orbitMouseUpFunction, false)
+}
+const addRotateEventListener = (viewModel) => {
+  document.addEventListener('mousemove', viewModel.rotateMouseMoveFunction, false)
+  document.addEventListener('touchmove', viewModel.rotateMouseMoveFunction, false)
+
+  document.addEventListener('mouseup', viewModel.rotateMouseUpFunction, false)
+  document.addEventListener('touchend', viewModel.rotateMouseUpFunction, false)
+}
+
+const removeOrbitEventListener = (viewModel) => {
+  document.removeEventListener('mousemove', viewModel.orbitMouseMoveFunction, false)
+  document.removeEventListener('touchmove', viewModel.orbitMouseMoveFunction, false)
+
+  document.removeEventListener('mouseup', viewModel.orbitMouseUpFunction, false)
+  document.removeEventListener('touchend', viewModel.orbitMouseUpFunction, false)
+}
+const removeRotateEventListener = (viewModel) => {
+  document.removeEventListener('mousemove', viewModel.rotateMouseMoveFunction, false)
+  document.removeEventListener('touchmove', viewModel.rotateMouseMoveFunction, false)
+
+  document.removeEventListener('mouseup', viewModel.rotateMouseUpFunction, false)
+  document.removeEventListener('touchend', viewModel.rotateMouseUpFunction, false)
+}
 function orbit(viewModel, compassElement, cursorVector) {
   var scene = viewModel.terria.scene
 
@@ -339,8 +377,7 @@ function orbit(viewModel, compassElement, cursorVector) {
   }
 
   // Remove existing event handlers, if any.
-  document.removeEventListener('mousemove', viewModel.orbitMouseMoveFunction, false)
-  document.removeEventListener('mouseup', viewModel.orbitMouseUpFunction, false)
+  removeOrbitEventListener(viewModel)
 
   if (defined(viewModel.orbitTickFunction)) {
     viewModel.terria.clock.onTick.removeEventListener(viewModel.orbitTickFunction)
@@ -429,9 +466,10 @@ function orbit(viewModel, compassElement, cursorVector) {
   }
 
   viewModel.orbitMouseMoveFunction = function (e) {
+    const { clientX, clientY } = getClientXY(e)
     var compassRectangle = compassElement.getBoundingClientRect()
     var center = new Cartesian2((compassRectangle.right - compassRectangle.left) / 2.0, (compassRectangle.bottom - compassRectangle.top) / 2.0)
-    var clickLocation = new Cartesian2(e.clientX - compassRectangle.left, e.clientY - compassRectangle.top)
+    var clickLocation = new Cartesian2(clientX - compassRectangle.left, clientY - compassRectangle.top)
     var vector = Cartesian2.subtract(clickLocation, center, vectorScratch)
     updateAngleAndOpacity(vector, compassRectangle.width)
   }
@@ -440,9 +478,7 @@ function orbit(viewModel, compassElement, cursorVector) {
     // TODO: if mouse didn't move, reset view to looking down, north is up?
 
     viewModel.isOrbiting = false
-    document.removeEventListener('mousemove', viewModel.orbitMouseMoveFunction, false)
-    document.removeEventListener('mouseup', viewModel.orbitMouseUpFunction, false)
-
+    removeOrbitEventListener(viewModel)
     if (defined(viewModel.orbitTickFunction)) {
       viewModel.terria.clock.onTick.removeEventListener(viewModel.orbitTickFunction)
     }
@@ -452,8 +488,7 @@ function orbit(viewModel, compassElement, cursorVector) {
     viewModel.orbitTickFunction = undefined
   }
 
-  document.addEventListener('mousemove', viewModel.orbitMouseMoveFunction, false)
-  document.addEventListener('mouseup', viewModel.orbitMouseUpFunction, false)
+  addOrbitEventListener(viewModel)
   viewModel.terria.clock.onTick.addEventListener(viewModel.orbitTickFunction)
 
   updateAngleAndOpacity(cursorVector, compassElement.getBoundingClientRect().width)
@@ -477,9 +512,7 @@ function rotate(viewModel, compassElement, cursorVector) {
   }
 
   // Remove existing event handlers, if any.
-  document.removeEventListener('mousemove', viewModel.rotateMouseMoveFunction, false)
-  document.removeEventListener('mouseup', viewModel.rotateMouseUpFunction, false)
-
+  removeRotateEventListener(viewModel)
   viewModel.rotateMouseMoveFunction = undefined
   viewModel.rotateMouseUpFunction = undefined
 
@@ -515,9 +548,10 @@ function rotate(viewModel, compassElement, cursorVector) {
   }
 
   viewModel.rotateMouseMoveFunction = function (e) {
+    const { clientX, clientY } = getClientXY(e)
     var compassRectangle = compassElement.getBoundingClientRect()
     var center = new Cartesian2((compassRectangle.right - compassRectangle.left) / 2.0, (compassRectangle.bottom - compassRectangle.top) / 2.0)
-    var clickLocation = new Cartesian2(e.clientX - compassRectangle.left, e.clientY - compassRectangle.top)
+    var clickLocation = new Cartesian2(clientX - compassRectangle.left, clientY - compassRectangle.top)
     var vector = Cartesian2.subtract(clickLocation, center, vectorScratch)
     var angle = Math.atan2(-vector.y, vector.x)
 
@@ -544,15 +578,12 @@ function rotate(viewModel, compassElement, cursorVector) {
 
   viewModel.rotateMouseUpFunction = function (e) {
     viewModel.isRotating = false
-    document.removeEventListener('mousemove', viewModel.rotateMouseMoveFunction, false)
-    document.removeEventListener('mouseup', viewModel.rotateMouseUpFunction, false)
-
+    removeRotateEventListener(viewModel)
     viewModel.rotateMouseMoveFunction = undefined
     viewModel.rotateMouseUpFunction = undefined
   }
 
-  document.addEventListener('mousemove', viewModel.rotateMouseMoveFunction, false)
-  document.addEventListener('mouseup', viewModel.rotateMouseUpFunction, false)
+  addRotateEventListener(viewModel)
 }
 
 export default NavigationViewModel
