@@ -138,3 +138,11 @@ options.zoomOutSvg = '<svg viewBox="64 64 896 896" focusable="false" data-icon="
 [https://www.jianshu.com/p/fb237c7eb48c](https://www.jianshu.com/p/fb237c7eb48c)  
 
 [https://blog.csdn.net/Prepared/article/details/68940997?locationNum=10&fps=1](https://blog.csdn.net/Prepared/article/details/68940997?locationNum=10&fps=1)
+
+# cesium-navigation-es6更新日志
+- 2022-01-06 3.0.4
+1. 支持自定义svg,包括罗盘、放大、缩小、默认视图
+2. 移除less,改用css
+3. 移除支持TerriaJS的相关依赖及代码，不再支持TerriaJS
+4. 支持移动端
+
