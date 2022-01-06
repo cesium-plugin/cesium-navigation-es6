@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
-import "./styles/cesium-navigation.less"
-import { defined, Event, knockout, DeveloperError } from 'cesium'
-import registerKnockoutBindings from './core/registerKnockoutBindings'
+import "./styles/cesium-navigation.css"
+import { defined, Event, DeveloperError } from 'cesium'
 import DistanceLegendViewModel from './viewModels/DistanceLegendViewModel'
 import NavigationViewModel from './viewModels/NavigationViewModel'
 
@@ -81,8 +79,6 @@ function initialize(viewerCesiumWidget, options) {
     throw new DeveloperError('CesiumWidget or Viewer is required.')
   }
 
-  //        options = defaultValue(options, defaultValue.EMPTY_OBJECT);
-
   var cesiumWidget = defined(viewerCesiumWidget.cesiumWidget) ? viewerCesiumWidget.cesiumWidget : viewerCesiumWidget
 
   var container = document.createElement('div')
@@ -93,11 +89,6 @@ function initialize(viewerCesiumWidget, options) {
   this.terria.afterWidgetChanged = new CesiumEvent()
   this.terria.beforeWidgetChanged = new CesiumEvent()
   this.container = container
-
-  // this.navigationDiv.setAttribute("id", "navigationDiv");
-
-  // Register custom Knockout.js bindings.  If you're not using the TerriaJS user interface, you can remove this.
-  registerKnockoutBindings()
 
   if (!defined(this.terria.options.enableDistanceLegend) || this.terria.options.enableDistanceLegend) {
     this.distanceLegendDiv = document.createElement('div')

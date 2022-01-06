@@ -1,6 +1,6 @@
 {
   "name": "cesium-navigation-es6",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "cesium-navigation-es6",
   "main": "dist/CesiumNavigation.umd.js",
   "module": "dist/CesiumNavigation.js",
@@ -22,10 +22,7 @@
     "url": "git+https://github.com/richard1015/cesium-navigation-es6.git"
   },
   "dependencies": {
-    "cesium": "^1.88",
-    "hammerjs": "^2.0.8",
-    "markdown-it": "^8.4.2",
-    "markdown-it-sanitizer": "^0.4.3"
+    "cesium": "^1.88"
   },
   "keywords": [
     "cesium-navigation"

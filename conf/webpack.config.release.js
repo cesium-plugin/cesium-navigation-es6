@@ -1,6 +1,5 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserPlugin = require("terser-webpack-plugin");
 const CopyDirWebpackPlugin = require('./webapck-plugin-copy');
 const config = require('../package.json');
@@ -8,7 +7,6 @@ const Webpack = require('webpack');
 const rootPath = "../dist";
 const plugins = [
     new CleanWebpackPlugin(),
-    new MiniCssExtractPlugin(),
     new Webpack.BannerPlugin({
         banner: `${config.name} v${config.version} - [filebase], [hash], ${new Date()}`
     }),
@@ -43,7 +41,7 @@ module.exports = {
         rules: [
             {
                 test: /\.css$/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader'],
+                use: ['style-loader', 'css-loader'],
             },
             {
                 test: /\.less$/,
