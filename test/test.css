@@ -61,6 +61,9 @@
     justify-content: center;
     display: flex;
     align-items: center;
+    float: left;
+    width: 30px;
+    height: 30px;
 }
 
 .navigation-control-icon-zoom-in {
@@ -70,6 +73,12 @@
 .navigation-control-icon-reset {
     left: auto;
     padding-top: 0px;
+}
+
+
+.navigation-control-icon-svg {
+    height: 20px;
+    fill: #fff;
 }
 
 .distance-legend {
