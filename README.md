@@ -46,7 +46,17 @@ const viewer = new Viewer("cesiumContainer",{
 
 const options = {};
 // 用于在使用重置导航重置地图视图时设置默认视图控制。接受的值是Cesium.Cartographic 和 Cesium.Rectangle.
-options.defaultResetView = Rectangle.fromDegrees(80, 22, 130, 50);
+// options.defaultResetView = Rectangle.fromDegrees(80, 22, 130, 50)
+options.defaultResetView = new Cartographic(CesiumMath.toRadians(111.50623801848565), CesiumMath.toRadians(2.8997206760441205), 8213979.400955964)
+//相机方向
+options.orientation = {
+    heading: CesiumMath.toRadians(350.94452087411315),
+    pitch: CesiumMath.toRadians(-66.6402342251215),
+    roll: CesiumMath.toRadians(360)
+}
+//相机延时
+options.duration = 4//默认为3s
+
 // 用于启用或禁用罗盘。true是启用罗盘，false是禁用罗盘。默认值为true。如果将选项设置为false，则罗盘将不会添加到地图中。
 options.enableCompass= true;
 // 用于启用或禁用缩放控件。true是启用，false是禁用。默认值为true。如果将选项设置为false，则缩放控件将不会添加到地图中。
@@ -87,7 +97,17 @@ const viewer = new Viewer("cesiumContainer",{
 
 const options = {};
 // 用于在使用重置导航重置地图视图时设置默认视图控制。接受的值是Cesium.Cartographic 和 Cesium.Rectangle.
-options.defaultResetView = Rectangle.fromDegrees(80, 22, 130, 50);
+// options.defaultResetView = Rectangle.fromDegrees(80, 22, 130, 50)
+options.defaultResetView = new Cartographic(CesiumMath.toRadians(111.50623801848565), CesiumMath.toRadians(2.8997206760441205), 8213979.400955964)
+//相机方向
+options.orientation = {
+    heading: CesiumMath.toRadians(350.94452087411315),
+    pitch: CesiumMath.toRadians(-66.6402342251215),
+    roll: CesiumMath.toRadians(360)
+}
+//相机延时
+options.duration = 4//默认为3s
+
 // 用于启用或禁用罗盘。true是启用罗盘，false是禁用罗盘。默认值为true。如果将选项设置为false，则罗盘将不会添加到地图中。
 options.enableCompass= true;
 // 用于启用或禁用缩放控件。true是启用，false是禁用。默认值为true。如果将选项设置为false，则缩放控件将不会添加到地图中。
@@ -146,3 +166,13 @@ options.zoomOutSvg = '<svg viewBox="64 64 896 896" focusable="false" data-icon="
 3. 移除支持TerriaJS的相关依赖及代码，不再支持TerriaJS
 4. 支持移动端
 
+- 2022-01-06 3.0.5
+1. 支持初始化相机视角的设置,至于获取方法，参见博文[《Cesium获取当前相机视角》](https://blog.csdn.net/qq_19689967/article/details/122538505)
+
+```javascript
+options.orientation = {
+    heading: CesiumMath.toRadians(350.94452087411315),
+    pitch: CesiumMath.toRadians(-66.6402342251215),
+    roll: CesiumMath.toRadians(360)
+}
+```

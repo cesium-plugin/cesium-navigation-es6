@@ -77,19 +77,24 @@ ResetViewNavigationControl.prototype.resetView = function () {
     this.terria.trackedEntity = trackedEntity
   } else {
     // reset to a default position or view defined in the options
+    const duration = this.terria.options.duration ? this.terria.options.duration : 3
     if (this.terria.options.defaultResetView) {
+      const orientation = this.terria.options.orientation ? this.terria.options.orientation : {
+        heading: CesiumMath.toRadians(5.729578)
+      }
       if (this.terria.options.defaultResetView && this.terria.options.defaultResetView instanceof Cartographic) {
         camera.flyTo({
-          destination: scene.globe.ellipsoid.cartographicToCartesian(this.terria.options.defaultResetView)
+          destination: scene.globe.ellipsoid.cartographicToCartesian(this.terria.options.defaultResetView),
+          orientation,
+          duration
         })
       } else if (this.terria.options.defaultResetView && this.terria.options.defaultResetView instanceof Rectangle) {
         try {
           Rectangle.validate(this.terria.options.defaultResetView)
           camera.flyTo({
             destination: this.terria.options.defaultResetView,
-            orientation: {
-              heading: CesiumMath.toRadians(5.729578)
-            }
+            orientation,
+            duration
           })
         } catch (e) {
           console.log('Cesium-navigation/ResetViewNavigationControl:   options.defaultResetView Cesium rectangle is  invalid!')
@@ -98,7 +103,7 @@ ResetViewNavigationControl.prototype.resetView = function () {
     } else if (typeof camera.flyHome === 'function') {
       camera.flyHome(1)
     } else {
-      camera.flyTo({ 'destination': Camera.DEFAULT_VIEW_RECTANGLE, 'duration': 1 })
+      camera.flyTo({ destination: Camera.DEFAULT_VIEW_RECTANGLE, duration })
     }
   }
   this.isActive = false

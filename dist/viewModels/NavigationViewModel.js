@@ -197,6 +197,7 @@ NavigationViewModel.prototype.isLastControl = function (control) {
 }
 
 var vectorScratch = new Cartesian2()
+
 const getClientXY = (e) => {
   let temp;
   if (e.touches) {
@@ -207,6 +208,7 @@ const getClientXY = (e) => {
   const { clientX, clientY } = temp;
   return { clientX, clientY }
 }
+
 NavigationViewModel.prototype.handleMouseDown = function (viewModel, e) {
   const { clientX, clientY } = getClientXY(e)
   var scene = this.terria.scene
