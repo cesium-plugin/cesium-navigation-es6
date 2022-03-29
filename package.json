@@ -1,12 +1,13 @@
 {
   "name": "cesium-navigation-es6",
-  "version": "3.0.6",
+  "version": "3.0.7",
   "typings": "lib/index.d.ts",
   "description": "cesium-navigation-es6",
   "main": "dist/CesiumNavigation.umd.js",
   "module": "dist/CesiumNavigation.js",
   "files": [
     "dist",
+    "lib",
     "README.md",
     "package.json",
     "LICENSE",
