@@ -153,9 +153,6 @@ options.zoomOutSvg = '<svg viewBox="64 64 896 896" focusable="false" data-icon="
 [cesium-print /github](https://github.com/richard1015/cesium-print)
 
 ### 参考文章
-[https://www.jianshu.com/p/dd364b59b774](https://www.jianshu.com/p/dd364b59b774)  
-
-[https://www.jianshu.com/p/fb237c7eb48c](https://www.jianshu.com/p/fb237c7eb48c)  
 
 [https://blog.csdn.net/Prepared/article/details/68940997?locationNum=10&fps=1](https://blog.csdn.net/Prepared/article/details/68940997?locationNum=10&fps=1)
 
