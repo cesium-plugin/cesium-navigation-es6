@@ -94,9 +94,10 @@ NavigationViewModel.prototype.show = function (container) {
   const closeStr = '</div>'
   const divCloseStr = '>'
   const hiddenStr = ' style="display: none;"'
+  const enableCompassOuterRing = this.terria.options.enableCompassOuterRing !== undefined ? this.terria.options.enableCompassOuterRing : true
 
   const compassPre = '<div class="compass"'
-  const compassPreAfter = 'title="" data-bind="visible: showCompass, event: { mousedown: handleMouseDown,touchstart:handleMouseDown, dblclick: handleDoubleClick }">'
+  const compassPreAfter = enableCompassOuterRing ? 'title="" data-bind="visible: showCompass, event: { mousedown: handleMouseDown,touchstart:handleMouseDown, dblclick: handleDoubleClick }">' : 'title="" data-bind="visible: showCompass">'
   const compassOuterRingBackground = '<div class="compass-outer-ring-background"></div>'
 
   const compassRotationMarkerPre = ' <div class="compass-rotation-marker" data-bind="visible: isOrbiting, style: { transform: \'rotate(-\' + orbitCursorAngle + \'rad)\', \'-webkit-transform\': \'rotate(-\' + orbitCursorAngle + \'rad)\', opacity: orbitCursorOpacity }'
