@@ -9,14 +9,14 @@ const viewer = new Viewer('cesiumContainer', {
 });
 const options = {};
 // 用于在使用重置导航重置地图视图时设置默认视图控制。接受的值是Cesium.Cartographic 和 Cesium.Rectangle.
-// options.defaultResetView = Rectangle.fromDegrees(80, 22, 130, 50)
-options.defaultResetView = new Cartographic(CesiumMath.toRadians(111.50623801848565), CesiumMath.toRadians(2.8997206760441205), 8213979.400955964)
+options.defaultResetView = Rectangle.fromDegrees(80, 22, 130, 50)
+// options.defaultResetView = new Cartographic(CesiumMath.toRadians(111.50623801848565), CesiumMath.toRadians(2.8997206760441205), 8213979.400955964)
 //相机方向
-options.orientation = {
-    heading: CesiumMath.toRadians(350.94452087411315),
-    pitch: CesiumMath.toRadians(-66.6402342251215),
-    roll: CesiumMath.toRadians(360)
-}
+// options.orientation = {
+//     heading: CesiumMath.toRadians(350.94452087411315),
+//     pitch: CesiumMath.toRadians(-66.6402342251215),
+//     roll: CesiumMath.toRadians(360)
+// }
 //相机延时
 options.duration = 4//默认为3s
 
