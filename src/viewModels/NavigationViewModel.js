@@ -145,7 +145,7 @@ NavigationViewModel.prototype.show = function (container) {
     '  <!-- ko ifnot: $data.svgIcon -->' +
 
     '  <!-- ko if: $data.resetSvg -->' +
-    '  <div class="navigation-control-icon-svg reset">' + resetSvg + '</div>' +
+    '  <div class="navigation-control-icon-svg reset" onclick="'+this.terria.options.reset+'">' + resetSvg + '</div>' +
     '  <!-- /ko -->' +
 
     '  <!-- ko ifnot: $data.resetSvg -->' +
