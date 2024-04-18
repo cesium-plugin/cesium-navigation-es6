@@ -62,8 +62,11 @@ options.zoomOutSvg =
   '<svg viewBox="64 64 896 896" focusable="false" data-icon="minus" width="20" height="20"  aria-hidden="true"><path d="M872 474H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h720c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z"></path></svg>';
 
 window.reset = () => {
-  console.log("重置视图");
+  console.log("重置视图被点击了");
 };
 options.reset = "reset()";
+options.resetSuccess = () => {
+  console.log("重置成功");
+};
 new CesiumNavigation(viewer, options);
 require("./test.less");
