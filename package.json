@@ -1,6 +1,6 @@
 {
   "name": "cesium-navigation-es6",
-  "version": "3.0.8",
+  "version": "3.0.9",
   "typings": "lib/index.d.ts",
   "description": "cesium-navigation-es6",
   "main": "dist/CesiumNavigation.umd.js",
