@@ -1,9 +1,9 @@
-import { Rectangle, Viewer } from "cesium";
+import { Cesium3DTile, Rectangle, Viewer } from "cesium";
 
 declare module "cesium-navigation-es6" {
     export interface NavigationOptions {
         // 用于在使用重置导航重置地图视图时设置默认视图控制。接受的值是Cesium.Cartographic 和 Cesium.Rectangle.
-        defaultResetView?: Rectangle
+        defaultResetView?: Rectangle | Cesium3DTile
         // 用于启用或禁用罗盘。true是启用罗盘，false是禁用罗盘。默认值为true。如果将选项设置为false，则罗盘将不会添加到地图中。
         enableCompass?: boolean
         // 用于启用或禁用缩放控件。true是启用，false是禁用。默认值为true。如果将选项设置为false，则缩放控件将不会添加到地图中。

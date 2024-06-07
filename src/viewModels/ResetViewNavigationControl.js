@@ -128,7 +128,7 @@ ResetViewNavigationControl.prototype.resetView = function () {
         }
       } else if (
         this.terria.options.defaultResetView &&
-        this.terria.options.defaultResetView instanceof Cesium3DTileset
+        this.terria.options.defaultResetView.isCesium3DTileset 
       ) {
         try {
           this.terria.zoomTo(
