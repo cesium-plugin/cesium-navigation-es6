@@ -4,6 +4,7 @@ import {
   Rectangle,
   Cartographic,
   Math as CesiumMath,
+  Cesium3DTileset
 } from "cesium";
 import svgReset from "../svgPaths/svgReset";
 import NavigationControl from "./NavigationControl";
@@ -123,6 +124,19 @@ ResetViewNavigationControl.prototype.resetView = function () {
         } catch (e) {
           console.log(
             "Cesium-navigation/ResetViewNavigationControl:   options.defaultResetView Cesium rectangle is  invalid!"
+          );
+        }
+      } else if (
+        this.terria.options.defaultResetView &&
+        this.terria.options.defaultResetView instanceof Cesium3DTileset
+      ) {
+        try {
+          this.terria.zoomTo(
+            this.terria.options.defaultResetView,
+          );
+        } catch (e) {
+          console.log(
+            "Cesium-navigation/ResetViewNavigationControl:   options.defaultResetView Cesium tileset is invalid!"
           );
         }
       }
