@@ -5,17 +5,24 @@ import {
   ArcGisMapServerImageryProvider,
   Cartesian3,
   Math as CesiumMath,
+  WebMapTileServiceImageryProvider,
   Cartographic,
 } from "cesium";
 import CesiumNavigation from "../src/CesiumNavigation";
-
+const webKey="4267820f43926eaf808d61dc07269beb";
 const viewer = new Viewer("cesiumContainer", {
-  imageryProvider: new ArcGisMapServerImageryProvider({
-    url: "https://elevation3d.arcgis.com/arcgis/rest/services/World_Imagery/MapServer",
-  }),
   animation: false,
+  baseLayerPicker :false,
   timeline: false,
 });
+viewer.imageryLayers.addImageryProvider( new WebMapTileServiceImageryProvider({
+  url: "http://t0.tianditu.com/img_w/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=img&tileMatrixSet=w&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}&style=default&format=tiles&tk="+webKey,
+        layer: "tdtBasicLayer",
+        style: "default",
+        format: "image/jpeg",
+        tileMatrixSetID: "GoogleMapsCompatible",
+        show: false
+}));
 const options = {};
 // 用于在使用重置导航重置地图视图时设置默认视图控制。接受的值是Cesium.Cartographic 和 Cesium.Rectangle.
 options.defaultResetView = Rectangle.fromDegrees(80, 22, 130, 50);
