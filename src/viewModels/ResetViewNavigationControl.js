@@ -113,7 +113,7 @@ ResetViewNavigationControl.prototype.resetView = function () {
         this.terria.options.defaultResetView instanceof Rectangle
       ) {
         try {
-          Rectangle.validate(this.terria.options.defaultResetView);
+          Rectangle.validate && Rectangle.validate(this.terria.options.defaultResetView);
           camera.flyTo({
             destination: this.terria.options.defaultResetView,
             orientation,
