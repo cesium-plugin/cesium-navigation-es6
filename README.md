@@ -63,6 +63,8 @@ options.enableCompass= true;
 options.enableZoomControls= true;
 // 用于启用或禁用距离图例。true是启用，false是禁用。默认值为true。如果将选项设置为false，距离图例将不会添加到地图中。
 options.enableDistanceLegend= true;
+// choose units for scale bar in distance legend, either metric, imperial or nautical
+options.units= "metric";
 // 用于启用或禁用指南针外环。true是启用，false是禁用。默认值为true。如果将选项设置为false，则该环将可见但无效。
 options.enableCompassOuterRing= true;
 
