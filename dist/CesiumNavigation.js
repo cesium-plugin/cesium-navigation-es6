@@ -98,7 +98,8 @@ function initialize(viewerCesiumWidget, options) {
       container: this.distanceLegendDiv,
       terria: this.terria,
       mapElement: container,
-      enableDistanceLegend: true
+      enableDistanceLegend: true,
+      units: this.terria.options.units
     })
   }
 
