@@ -142,14 +142,14 @@ function updateDistanceLegendCesium(viewModel, scene) {
   if (defined(distance)) {
     var distanceLabel
     // update the label based on the selected units
-    if (this.units === 'imperial') {
+    if (that.units === 'imperial') {
         var feet = distance * 3.28084;
         if (feet < 5280) {
             distanceLabel = Math.round(feet) + ' ft';
         } else {
             distanceLabel = (feet / 5280).toFixed(1) + ' mi';
         }
-    } else if (this.units === 'nautical') {
+    } else if (that.units === 'nautical') {
         var feet = distance * 3.28084;
         var nm = distance / 1852;
         if (nm < 0.5) {
