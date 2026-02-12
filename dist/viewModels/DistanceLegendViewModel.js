@@ -17,6 +17,7 @@ var DistanceLegendViewModel = function (options) {
   this.barWidth = undefined
 
   this.enableDistanceLegend = (defined(options.enableDistanceLegend)) ? options.enableDistanceLegend : true
+  this.units = options.units || 'metric'; // 'metric', 'imperial', or 'nautical'
 
   Knockout.track(this, ['distanceLabel', 'barWidth'])
 
@@ -139,15 +140,34 @@ function updateDistanceLegendCesium(viewModel, scene) {
   }
 
   if (defined(distance)) {
-    var label
-    if (distance >= 1000) {
-      label = (distance / 1000).toString() + ' km'
+    var distanceLabel
+    // update the label based on the selected units
+    if (this.units === 'imperial') {
+        var feet = distance * 3.28084;
+        if (feet < 5280) {
+            distanceLabel = Math.round(feet) + ' ft';
+        } else {
+            distanceLabel = (feet / 5280).toFixed(1) + ' mi';
+        }
+    } else if (this.units === 'nautical') {
+        var feet = distance * 3.28084;
+        var nm = distance / 1852;
+        if (nm < 0.5) {
+            distanceLabel = Math.round(feet) + ' ft';
+        } else {
+            distanceLabel = nm.toFixed(1) + ' nm';
+        }
     } else {
-      label = distance.toString() + ' m'
+        // Metric
+        if (distance < 1000) {
+            distanceLabel = distance.toFixed(0) + ' m';
+        } else {
+            distanceLabel = (distance / 1000).toFixed(1) + ' km';
+        }
     }
 
     viewModel.barWidth = (distance / pixelDistance) | 0
-    viewModel.distanceLabel = label
+    viewModel.distanceLabel = distanceLabel
   } else {
     viewModel.barWidth = undefined
     viewModel.distanceLabel = undefined
